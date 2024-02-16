@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct PostView: View {
-    let post: Post
+    @State var post: Post
     var body: some View {
         HStack(alignment: .top) {
             VStack {
@@ -38,7 +38,9 @@ struct PostView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
                 HStack {
-                    Button {} label: {
+                    Button {
+                        post.comments += 1
+                    } label: {
                         HStack {
                             Image(systemName: "message")
                             Text(post.comments == 0 ? "" : "\(post.comments)")
@@ -67,6 +69,25 @@ struct PostView: View {
                         }
                     }
                     .foregroundStyle(.primary)
+                    Spacer()
+                    HStack {
+                        Button {
+                            post.upvotes += 1
+                        } label: {
+                            Image(systemName: "arrow.up.circle.fill")
+                                .imageScale(.large)
+                        }
+                        .tint(.gray)
+                        Text("\(post.upvotes)")
+                            .fontDesign(.rounded)
+                            .bold()
+                            .foregroundStyle(.mint)
+                        Button {} label: {
+                            Image(systemName: "arrow.down.circle.fill")
+                                .imageScale(.large)
+                        }
+                        .tint(.gray)
+                    }
                 }
                 .padding(.top, 3)
             }
